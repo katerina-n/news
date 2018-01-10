@@ -1,0 +1,40 @@
+<form method="post" action="../webroot/admin/index.php?controller=admindefault&action=addRekl">
+    <td><p>Добавить рекламу </p><input type="hidden" name="id" ></td>
+    <td>Название<input type="text" name="name" > </td>
+    <td>Название фирмы <input type="text" name="name_firm" > </td>
+    <td>Цена<input type="text" name="price" >
+    </td>
+    <td>Дата<input type="text" name="date" >
+    </td>
+    <td>
+        <button>Save</button>
+    </td>
+</form>
+<table  style="border: solid;">
+    <tr><td>Название</td><td>Название фирмы</td><td>Цена</td><td>Дата</td></tr>
+    <?php for ($i=0; $i<=count($news)-1; $i++ ): ?>
+        <tr>
+            <form method="post" action="../webroot/admin/index.php?controller=admindefault&action=addRekl">
+                <td> <input type="hidden" name="id" value="<?= $news[$i]->getId();?>"></td>
+                <td><input type="text" name="name" value="<?=$news[$i]->getName();?>"> </td>
+                <td><input type="text" name="name_firm" value="<?=$news[$i]->getNameFirm(); ?>">
+                </td>
+                <td><input type="text" name="price" value="<?=$news[$i]->getPrice(); ?>">
+                </td>
+                <td><input type="text" name="date" value="<?=$news[$i]->getDate(); ?>">
+                </td>
+                <td>
+                    <button>Save</button>
+                </td>
+            </form>
+            <form method="post" action="../webroot/admin/index.php?controller=admindefault&action=deleteRekl">
+                <td> <input type="hidden" name="id" value="<?= $news[$i]->getId();?>"></td>
+                <td>
+                    <button>Delete</button>
+                </td>
+            </form>
+        </tr>
+
+    <?php endfor; ?>
+
+</table>

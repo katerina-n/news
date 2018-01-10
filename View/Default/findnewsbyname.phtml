@@ -1,0 +1,7 @@
+<?php for($i=0; $i<count($policy); $i++): ?>
+ <?php if ($i<count($policy)):?>
+
+        <a href="../webroot/index.php?controller=default&action=show&name=<?=$a[$i]?>&id=<?=$policy[$i]->getId();?>"><?=$policy[$i]->getName();?></a> <br>
+    <?php endif;?>
+<?php endfor; ?>
+

@@ -1,0 +1,62 @@
+<body>
+
+    <?php for($i=0; $i<=count($policy)-1; $i=$i+5): ?>
+        <?php if($i<5){$name='policy';} if(($i>=5)&&($i<10)){$name='bisness';}
+         if(($i>=10)&&($i<15)){$name='science';} if($i>=15){$name='nature';}?>
+      <div style="display: inline-block">
+            <a href="../webroot/index.php?controller=default&action=show&name=<?=$name?>&id=<?=$policy[$i]->getId()?>"><?=$policy[$i]->getName()?>
+                </a><br>
+
+            <a href="../webroot/index.php?controller=default&action=show&name=<?=$name?>&id=<?=$policy[$i]->getId()?>"><?=$policy[$i+1]->getName()?>
+                </a><br>
+
+            <a href="../webroot/index.php?controller=default&action=show&name=<?=$name?>&id=<?=$policy[$i]->getId()?>"><?=$policy[$i+2]->getName()?>
+                </a><br>
+
+            <a href="../webroot/index.php?controller=default&action=show&name=<?=$name?>&id=<?=$policy[$i]->getId()?>"><?=$policy[$i+3]->getName()?>
+                </a><br>
+            <a href="../webroot/index.php?controller=default&action=show&name=<?=$name?>&id=<?=$policy[$i]->getId()?>"><?=$policy[$i+4]->getName()?>
+                </a>
+          </div>
+<?php endfor; ?>
+<p>TOP юзеров</p>
+
+<?php for($j=0; $j<=count($users)-1; $j++): ?>
+    <a href="../webroot/index.php?controller=default&action=showUser&id=<?=$users[$j]->getId();?>&username=<?=$users[$j]->getUserName();?>"><?=$users[$j]->getUserName()." ";?>
+    </a>
+<?php endfor; ?>
+<p>TOP тем</p>
+<?php for($j=0; $j<=2; $j++): ?>
+    <?=$subjects[$j]->getTableName()." ";?>
+<?php endfor; ?>
+<hr>
+<div id="slider"></div>
+<img id="pic" alt="nophoto"></img>
+<hr>
+    <script>
+var i=0;
+
+arrGif=eval('<?php \Model\Repository::id() ?>');
+
+   /*window.onload=function(){
+        setInterval(fn,3000);
+    };*/
+setInterval( function fn(){
+    document.getElementById("slider").innerText = arrGif[i];
+
+         if((arrGif[i+1]).length>0){
+         document.getElementById("pic").src = "./Photo/{arrGif[i]}".replace('{arrGif[i]}', arrGif[i+1]);}
+
+         i=i+2;
+         if (i > 8) {
+         i = 0;
+         }
+
+}, 3000);
+
+
+
+
+</script>
+
+</body>

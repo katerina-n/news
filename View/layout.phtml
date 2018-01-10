@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+    <script src="js/jquery.modal.min.js"></script>
+    <link rel="stylesheet" href="/resources/demos/style.css" />
+<style>
+    #slow_nav > ul > li{
+        list-style: none;
+        display: inline-block;
+        position:relative;
+        padding:0;
+    }
+
+    #slow_nav > ul > li > a{
+        font-size:18px;
+        padding:5px;
+        background-color:#333;
+        color:#fff;
+    }
+
+    #slow_nav li ul{
+        position:absolute;
+        list-style:none;
+        text-align:center;
+        top:15px;
+        font-size:15px;
+        display:none;
+    }
+   #slow_nav li ul li ul{
+       position:absolute;
+       list-style:none;
+       text-align:center;
+       top:0px;
+       font-size:15px;
+       left:0px;
+       display:none;
+   }
+    #slow_nav li ul li{
+        background-color:#333;
+        border-bottom:1px solid #888;
+    }
+    #slow_nav li ul li:last-child{
+        border-bottom:none;
+    }
+
+    #slow_nav li ul li a{
+        padding:5px 12px;
+        display:block;
+    }
+
+    #slow_nav li ul li:hover{
+        background-color:#444;
+    }
+
+    #slow_nav li ul li:first-child{
+        margin-top:25px;
+        position:relative;
+    }
+
+    #slow_nav li ul li:first-child:before{
+        content:'';
+        position:absolute;
+        width:1px;
+        height:1px;
+        border:5px solid transparent;
+        border-bottom-color:#333;
+        left:10px;
+        top:-10px;
+    }
+    .pop-up {
+        border:5px solid;
+        border-bottom-color: #333333;
+        position: absolute;
+        margin: 5% auto;
+        left: 700px;
+top:-10px;
+        z-index: 2;
+    }
+
+
+
+    .left, .center, .right {
+        float: left;
+        margin-top: 60px;
+
+        margin-right: 10px;
+        text-align: center;
+    }
+    .left, .right {
+        width:10%;
+       /* //border-style: groove;*/
+    }
+    .center{
+        width:70%;
+    }
+    .left>div, .right>div{
+        border-style: groove;
+    }
+    .left>div:hover{
+       transform: scale(1.2);
+        background-color: gainsboro;
+    }
+    .right>div:hover{
+        transform: scale(1.2);
+        background-color: gainsboro;
+    }
+
+</style>
+<body>
+<h1>News</h1>
+<nav id="slow_nav" >
+    <ul style="display: inline-block">
+        <li>
+<a href ="../webroot/index.php">Мир</a>
+            <ul>
+                <li> <a href ="../webroot/index.php">Мир</a>
+                    <ul>
+                        <li><a href ="../webroot/index.php?controller=default&action=policy">Политика</a></li>
+                        <li><a href ="../webroot/index.php?controller=default&action=bisness">Бизнес</a></li>
+                        <li><a href ="../webroot/index.php?controller=default&action=science">Наука</a></li>
+                        <li><a href ="../webroot/index.php?controller=default&action=nature">Природа</a></li>
+                        <li><a href ="../webroot/index.php?controller=default&action=chekin">Регистрация</a></li>
+                         <li><a href="../webroot/index.php?controller=default&action=findoption">Поиск</a></li>
+                    </ul></li>
+            </ul>
+        </li>
+
+
+    </ul>
+
+<a href ="../webroot/index.php?controller=default&action=policy">Политика</a>
+<a href ="../webroot/index.php?controller=default&action=bisness">Бизнес</a>
+<a href ="../webroot/index.php?controller=default&action=science">Наука</a>
+<a href ="../webroot/index.php?controller=default&action=nature">Природа</a>
+<a href ="../webroot/index.php?controller=default&action=chekin">Регистрация</a>
+<a href="../webroot/index.php?controller=default&action=findoption">Поиск</a>
+</nav>
+<form method="post" action="../webroot/index.php?controller=default&action=find">
+    <div class="ui-widget"style="display: inline" >
+Найти по тегу:
+   <input type="text" name="tag" id="tag">
+    </div>
+    <button>find</button>
+</form>
+
+
+
+<hr>
+<div class="container">
+    <div class="left"><div id="1"><p id="na"></p>
+            <p id="pr"></p></div>
+        <div id="2">reklama2</div>
+        <div id="3">reklama3</div>
+        </div>
+<div class="center">
+<?= $content?>
+</div>
+<div class="right"><div id="5">reklama5</div>
+    <div id="6">reklama6</div>
+    <div id="7">reklama7</div>
+    <div id="8">reklama8</div>
+</div>
+</div>
+
+<?php session_start(); ?>
+<div class="row pop-up">
+    <div class="box small-6 large-centered">
+        <a class="close-button">&#10006;</a>
+        <h3>Подписаться на рассылку</h3>
+        <form method="post" action="../webroot/index.php?controller=default&action=find">
+            <input type="text" name="email" id="email">
+        </form>
+        <button>Send</button>
+    </div>
+</div>
+
+
+
+</body>
+<script type="text/javascript">
+    $(function() {
+        var availableTags = [
+            "policy",
+            "nature",
+            "bisness",
+            "science",
+            "bis",
+            "nat",
+            "sc"
+        ];
+        $( "#tag" ).autocomplete({
+            source: availableTags
+        });
+    });
+    jQuery(document).ready(function($){
+        $('#slow_nav  ul li').hover(
+            function () {
+                $('ul', this).stop().slideDown(400);
+            },
+            function () {
+                $('ul', this).stop().slideUp(400);
+            }
+        );
+
+    });
+
+
+    $(function() {
+        $('.pop-up').hide();
+        $('.pop-up').fadeIn(15000);
+        $('.close-button').click(function (e) {
+<?php session_start(); $_SESSION['key']='stop';?>
+            $('.pop-up').fadeOut();
+
+            e.stopPropagation();
+        });
+    });
+
+
+    var arra=eval('<?php \Model\Repository::findreklama() ?>');
+    var st=arra.toString();
+    var ar=st.split(',');
+    window.onload=function () {
+        document.getElementById("na").innerText = ar[0];
+        document.getElementById("pr").innerText =ar[2];
+        document.getElementById("1").onmouseover=function(){document.getElementById("pr").innerText=parseInt(ar[2])*0.9+"  Код 9745";}
+        document.getElementById("1").onmouseout=function(){document.getElementById("pr").innerText=ar[2];}
+    }
+
+
+</script>

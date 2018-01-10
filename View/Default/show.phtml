@@ -1,0 +1,52 @@
+<?php use Model\Repository; ?>
+<h3><?php echo $policy[0]->getName();?></h3>
+<hr>
+<?php if(!empty($policy[0]->getPicture())):?>
+<?php $im=$policy[0]->getPicture();?>
+    <img src="./Photo/<?=$im?>">
+<?php endif?>
+<h4><?php echo $policy[0]->getContent();?></h4>
+<?php $array= explode(", ",$policy[0]->getTag());?>
+<p>#</p>
+<?php foreach ($array as $value): ?>
+    <a href ="../webroot/index.php?controller=default&action=findtag&tag=<?=$value;?>"><?=$value;?></a>
+<?php endforeach;?>
+
+<hr>
+
+Просматривают<div id="now">
+</div>
+Все просмотры<div id="all">
+</div>
+
+<div>
+
+    <form method="post" action="../webroot/index.php?controller=default&action=send&name=<?=$_GET['name']?>&id=<?=$policy[0]->getId()?>" >
+       Комментарий: <input type="text" name="comment">
+        <input type="submit" value="отправить">
+    </form>
+</div>
+
+<?php for($j=0 ;$j<=count($comment_view)-1; $j++): ?>
+    <div> <?=$comment_view[$j]->getUserName();?>
+        <?=$comment_view[$j]->getComments();?>
+        <?=$comment_view[$j]->getLikeN();?>
+        <form method="post" action="../webroot/index.php?controller=default&action=pluslike&&name=<?=$_GET['name']?>&id=<?=$policy[0]->getId()?>&idlike=<?=$comment_view[$j]->getId()?>">
+            <input type="submit" value="LIKE" name="li"><input type="submit" value="DISLIKE" name="dli"></form>
+
+        <!--<form method="post" action="../webroot/index.php?controller=default&action=addanswer&name=<?/*=$_GET['name']*/?>&id=<?/*=$policy[0]->getId()*/?>&comid=<?/*=$comment_view[$j]->getUserName();*/?>">
+            <input type="text" name="comment"><input type="submit" value="Add" name="addcom" >
+        </form>-->
+   </div>
+<?php endfor;?>
+<script>
+    var arr=eval('<?=$json ?>');
+
+    window.onload=function () {
+        setInterval(fn, 1000 );
+    }
+    function fn() {
+        document.getElementById("now").innerText = arr[0];
+        document.getElementById("all").innerText = arr[1];
+    }
+    </script>

@@ -1,0 +1,6 @@
+<div><?=$_SESSION['flash'];?></div>
+<form method="post" action="../../webroot/index.php?controller=default&action=chek&user=<?=$_SESSION['user'];?>">
+    <input type="email" name="email" placeholder="email" ><br>
+    <input type="password" name="password" placeholder="password"><br>
+    <button name="button">Enter</button>
+</form>

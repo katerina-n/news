@@ -1,0 +1,31 @@
+<table  style="border: solid;">
+    <tr><td>Таблица</td><td>Новость</td><td>Юзер</td><td>Комментарий</td><td>Лайки</td><td>Статус</td></tr>
+    <?php for ($i=0; $i<=count($news)-1; $i++ ): ?>
+        <tr>
+            <form method="post" action="../webroot/admin/index.php?controller=admindefault&action=addCom">
+                <td> <input type="hidden" name="id" value="<?= $news[$i]->getId();?>"></td>
+                <td><input type="text" name="table_name" value="<?=$news[$i]->getTableName();?>"> </td>
+                <td><input type="text" name="news_id" value="<?=$news[$i]->getNewsId();?>"> </td>
+                <td><input type="text" name="user_name" value="<?=$news[$i]->getUserName(); ?>">
+                </td>
+                <td><input type="text" name="comments" value="<?=$news[$i]->getComments(); ?>">
+                </td>
+                <td><input type="text" name="like_n" value="<?=$news[$i]->getLikeN(); ?>">
+                </td>
+                <td><input type="text" name="status" value="<?=$news[$i]->getStatus(); ?>">
+                </td>
+                <td>
+                    <button>Save</button>
+                </td>
+            </form>
+            <form method="post" action="../webroot/admin/index.php?controller=admindefault&action=deleteCom">
+                <td> <input type="hidden" name="id" value="<?= $news[$i]->getId();?>"></td>
+                <td>
+                    <button>Delete</button>
+                </td>
+            </form>
+        </tr>
+
+    <?php endfor; ?>
+
+</table>

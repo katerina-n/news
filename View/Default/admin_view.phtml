@@ -1,0 +1,50 @@
+<form method="post" action="../webroot/admin/index.php?controller=admindefault&action=add">
+    <td><p>Добавить новость </p><input type="hidden" name="id" ></td>
+    <td>Название<input type="text" name="name" > </td>
+    <td>Новость<input type="text" name="content" > </td>
+    <td>Дата<input type="text" name="created" >
+    </td>
+    <td>Адресс картинки<input type="text" name="picture" >
+    </td>
+    <td>Теги<input type="text" name="tag" >
+    </td>
+    <td>Лайки<input type="text" name="visit" >
+    </td>
+    <td>Название таблицы<input type="text" name="table_name" >
+    </td>
+    <td>
+        <button>Save</button>
+    </td>
+</form>
+<table  style="border: solid;">
+    <?php for ($i=0; $i<=count($news)-1; $i++ ): ?>
+        <tr>
+            <form method="post" action="../webroot/admin/index.php?controller=admindefault&action=add">
+                <td> <input type="hidden" name="id" value="<?= $news[$i]->getId();?>"></td>
+                <td><input type="text" name="name" value="<?=$news[$i]->getName();?>"> </td>
+                <td><input type="text" name="content" value="<?=$news[$i]->getContent();?>"> </td>
+                <td><input type="text" name="created" value="<?=$news[$i]->getCreated(); ?>">
+                </td>
+                <td><input type="text" name="picture" value="<?=$news[$i]->getPicture(); ?>">
+                </td>
+                <td><input type="text" name="tag" value="<?=$news[$i]->getTag(); ?>">
+                </td>
+                <td><input type="text" name="visit" value="<?=$news[$i]->getVisit(); ?>">
+                </td>
+                <td><input type="text" name="table_name" value="<?=$_GET['table_name'][$i]; ?>">
+                </td>
+                <td>
+                    <button>Save</button>
+                </td>
+            </form>
+            <form method="post" action="../webroot/admin/index.php?controller=admindefault&action=delete">
+                <td> <input type="hidden" name="id" value="<?= $news[$i]->getId();?>"></td>
+                <td>
+                    <button>Delete</button>
+                </td>
+            </form>
+        </tr>
+
+    <?php endfor; ?>
+
+</table>

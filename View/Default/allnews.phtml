@@ -1,0 +1,19 @@
+<?php for($i=0; $i<=count($policy)-1; $i=$i+5): ?>
+    <?php if($i<5){$name='policy';} if(($i>=5)&&($i<10)){$name='bisness';}
+    if(($i>=10)&&($i<15)){$name='science';} if($i>=15){$name='nature';}?>
+    <div style="display: inline-block">
+        <a href="../webroot/index.php?controller=default&action=show&name=<?=$name?>&id=<?=$policy[$i]->getId()?>"><?=$policy[$i]->getName()?>
+        </a><br>
+
+        <a href="../webroot/index.php?controller=default&action=show&name=<?=$name?>&id=<?=$policy[$i]->getId()?>"><?=$policy[$i+1]->getName()?>
+        </a><br>
+
+        <a href="../webroot/index.php?controller=default&action=show&name=<?=$name?>&id=<?=$policy[$i]->getId()?>"><?=$policy[$i+2]->getName()?>
+        </a><br>
+
+        <a href="../webroot/index.php?controller=default&action=show&name=<?=$name?>&id=<?=$policy[$i]->getId()?>"><?=$policy[$i+3]->getName()?>
+        </a><br>
+        <a href="../webroot/index.php?controller=default&action=show&name=<?=$name?>&id=<?=$policy[$i]->getId()?>"><?=$policy[$i+4]->getName()?>
+        </a>
+    </div>
+<?php endfor; ?>

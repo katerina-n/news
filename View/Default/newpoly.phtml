@@ -1,0 +1,6 @@
+<?php for($i=0; $i<count($policy); $i++): ?>
+    <a href="../webroot/index.php?controller=default&action=show&name=<?=$_GET['name']?>&id=<?=$policy[$i]->getId()?>"><?=$policy[$i]->getName()?></a> <br>
+<?php endfor; ?>
+<?php for($j=1; $j<=$GLOBALS['total']; $j++): ?>
+<a href="../webroot/index.php?controller=default&action=but&idd=<?=$j?>&name=<?=$_GET['name']?>"><button><?=$j?></button></a>
+<?php endfor;?>

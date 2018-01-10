@@ -1,0 +1,10 @@
+<?php for($i=0; $i<5; $i++): ?>
+
+    <?php if ($i<count($policy)):?>
+
+        <a href="../webroot/index.php?controller=default&action=show&name=<?=$_GET['tag']?>&id=<?=$policy[$i]->getid()?>"><?=$policy[$i]->getName()?></a> <br>
+    <?php endif;?>
+<?php endfor; ?>
+<?php for($j=1; $j<=$GLOBALS['total']; $j++): ?>
+    <a href="../webroot/index.php?controller=default&action=findtag&idd=<?=$j?>&name=<?=$_GET['name']?>&tag=<?=$_GET['tag']?>"><button><?=$j?></button></a>
+<?php endfor;?>

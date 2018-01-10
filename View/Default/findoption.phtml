@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+    <link rel="stylesheet" href="/resources/demos/style.css" />
+<body>
+
+
+<form method="post" action="../webroot/index.php?controller=default&action=findnewsbyname">
+    <div class="ui-widget" style="display: inline-block" >
+        Найти новости:
+        <input type="text" name="findnew" id="findnew">
+    </div>
+    <button>find</button>
+</form>
+<h3>Критерии поиска</h3>
+<form method="post" action="../webroot/index.php?controller=default&action=findnewsbycret">
+    <p>Выберите период</p>
+    <select name="date" size="1">
+        <option value="today">за сегодня</option>
+        <option value="week">за неделю</option>
+        <option value="month">за месяц</option>
+    </select>
+    <p>Выберите категорию</p>
+    <select name="subj[]" size="4" multiple>
+        <option value="bisness">бизнес</option>
+        <option value="nature">природа</option>
+        <option value="police">политика</option>
+        <option value="science">наука</option>
+    </select>
+    <br>
+    <button>Select</button>
+</form>

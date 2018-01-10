@@ -1,0 +1,6 @@
+<h3><?=$users[0]->getUserName();?></h3>
+<?php for ($i=0; $i<=count($users)-1; $i++):?>
+    comments:   <?=$users[$i]->getComments();?>
+   likes: <?=$users[$i]->getLikeN();?>
+    <br>
+<?php endfor;?>

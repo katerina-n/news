@@ -1,0 +1,31 @@
+<?php
+namespace Framework;
+abstract class Session{  //flesh soobsheniia
+    public static function set($name, $value){ //zapisuvaet v massivsessii kliy znachenie
+        $_SESSION[$name]=$value;
+    }
+    public static function get($name){
+        if(isset($_SESSION[$name])){
+            return $_SESSION[$name];
+        }
+        return null;
+    }
+    public static function destroy(){
+        session_destroy();
+    }
+    public static function remove($name){
+        unset($_SESSION[$name]);
+    }
+    public static function start(){
+        session_start();
+    }
+    public static function setFlash($message){
+        self::set('flash', $message);
+    }
+    public static function getFlash(){
+        $message=self::get('flash');
+        self::remove('flash');
+        return $message;
+    }
+
+}
