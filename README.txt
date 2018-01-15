@@ -1,9 +1,9 @@
-login для user 
+login for user 
 user@user
-пароль
+password
 1234
 
-login для admin
+login for admin
 admin@admin
-пароль
+password
 123
