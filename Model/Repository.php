@@ -369,6 +369,7 @@ class Repository
         global $pdo;
         $collections = [];
         // die("INSERT into `comment` VALUES( ,'{$table_name}', '{$news_id}', '{$user_name}', '{$comments}', 0)");
+        //die( "INSERT into `comment` VALUES( '','{$table_name}', {$news_id}, '{$user_name}', '{$comments}', 0, 0)");
         $sql = "INSERT into `comment` VALUES( '','{$table_name}', {$news_id}, '{$user_name}', '{$comments}', 0, 0)";
         $std = $pdo->prepare($sql);
         $std->execute();
@@ -474,32 +475,7 @@ class Repository
         return $collections;
     }
 
-    public static function addcommenttocomment($user_name, $comment_id, $comments)
-    {
-        global $pdo;
-        $collections = [];
-        // die("INSERT into `comment` VALUES( ,'{$table_name}', '{$news_id}', '{$user_name}', '{$comments}', 0)");
-        $sql = "INSERT into `answer_comment` VALUES( '','{$user_name}', {$comment_id}, '{$comments}')";
-        $std = $pdo->prepare($sql);
-        $std->execute();
-        $sql = "SELECT * FROM `answer_comment` WHERE comment_id= '{$comment_id}'";
 
-        $std = $pdo->prepare($sql);
-        $std->execute();
-        $result = $std->fetchAll(\PDO::FETCH_ASSOC);
-
-        for ($i = 0; $i <= count($result) - 1; $i++) {
-            $tests = (new Answer_comment())->setId($result[$i]['id'])
-                ->setUserName($result[$i]['user_name'])
-                ->setCommentId($result[$i]['comment_id'])
-                ->setComments($result[$i]['comments']);
-
-
-            $collections[] = $tests;
-        }
-
-        return $collections;
-    }
 
     public static function findnewbyname($name)
     {
@@ -640,7 +616,7 @@ class Repository
         global $pdo;
         $collections = [];
 
-        $sql = "SELECT * FROM reklama  order by date desc";
+        $sql = "SELECT * FROM reklama  order by date desc limit 3";
         $std = $pdo->prepare($sql);
         $std->execute();
         $result = $std->fetchAll(\PDO::FETCH_ASSOC);
@@ -899,9 +875,99 @@ class Repository
 
         $color=$result[0]["name"];
 
-        setcookie("sait_colors",$color);
+
 
         $json=json_encode($color);
         echo $json;
     }
+    public static function lc(){
+        global $pdo;
+        $sql="Select name from `color` order by id desc limit 1";
+        $std = $pdo->prepare($sql);
+
+        $std->execute();
+        $resultat = $std->fetchAll();
+
+        $color_t=$resultat[0]["name"];
+
+        return $color_t;
+    }
+    public static function addanswer($username, $comment_id, $comments){
+        global $pdo;
+        $collections = [];
+//die("insert into 'answer_comment' values('', '{$username}', {$comment_id}, '{$comments}', 0, 0, '0')");
+        $sql = "insert into answer_comment values('', '{$username}', '{$comment_id}', '{$comments}', 0, 0, now())";
+        $std = $pdo->prepare($sql);
+        $std->execute();
+//die("Select * from answer_comment where 'comment_id'='{$comment_id}' order by created desc");
+       // $sql="Select * from answer_comment where comment_id ='{$comment_id}' order by created desc";
+        $sql="Select * from answer_comment  order by comment_id";
+        $std = $pdo->prepare($sql);
+        // $std=$pdo->query($sql);
+        $std->execute();
+        $result = $std->fetchAll(\PDO::FETCH_ASSOC);
+//die(var_dump($result));
+        for ($i = 0; $i <= count($result) - 1; $i++) {
+
+            $tests = (new Answer_comment())->setId($result[$i]['id'])
+                ->setUserName($result[$i]['user_name'])
+                ->setCommentId($result[$i]['comment_id'])
+                ->setComments($result[$i]['comments']);
+
+            $collections[] = $tests;
+
+        }
+//die(var_dump($collections));
+        return $collections;
+
+    }
+    public static function answercomment(){
+        global $pdo;
+        $collections = [];
+        $sql="Select * from answer_comment  order by comment_id";
+        $std = $pdo->prepare($sql);
+        // $std=$pdo->query($sql);
+        $std->execute();
+        $result = $std->fetchAll(\PDO::FETCH_ASSOC);
+//die(var_dump($result));
+        for ($i = 0; $i <= count($result) - 1; $i++) {
+
+            $tests = (new Answer_comment())->setId($result[$i]['id'])
+                ->setUserName($result[$i]['user_name'])
+                ->setCommentId($result[$i]['comment_id'])
+                ->setComments($result[$i]['comments']);
+
+            $collections[] = $tests;
+
+        }
+//die(var_dump($collections));
+        return $collections;
+
+    }
+    /* public static function addcommenttocomment($user_name, $comment_id, $comments)
+    {
+        global $pdo;
+        $collections = [];
+        // die("INSERT into `comment` VALUES( ,'{$table_name}', '{$news_id}', '{$user_name}', '{$comments}', 0)");
+        $sql = "INSERT into `answer_comment` VALUES( '','{$user_name}', {$comment_id}, '{$comments}')";
+        $std = $pdo->prepare($sql);
+        $std->execute();
+        $sql = "SELECT * FROM `answer_comment` WHERE comment_id= '{$comment_id}'";
+
+        $std = $pdo->prepare($sql);
+        $std->execute();
+        $result = $std->fetchAll(\PDO::FETCH_ASSOC);
+
+        for ($i = 0; $i <= count($result) - 1; $i++) {
+            $tests = (new Answer_comment())->setId($result[$i]['id'])
+                ->setUserName($result[$i]['user_name'])
+                ->setCommentId($result[$i]['comment_id'])
+                ->setComments($result[$i]['comments']);
+
+
+            $collections[] = $tests;
+        }
+
+        return $collections;
+    }*/
 }

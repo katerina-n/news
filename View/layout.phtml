@@ -1,12 +1,16 @@
-<!doctype html>
+<!doctype html PUBLIC"-//W3C//DTD HTML 4.01//EN">
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+    <link rel="stylesheet" href="/resources/demos/style.css" />
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
     <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
     <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-    <script src="js/jquery.modal.min.js"></script>
-    <link rel="stylesheet" href="/resources/demos/style.css" />
+    <!--<script src="js/jquery.modal.min.js"></script>-->
+   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
 <style>
     #slow_nav > ul > li{
         list-style: none;
@@ -26,7 +30,7 @@
         position:absolute;
         list-style:none;
         text-align:center;
-        top:15px;
+        top:0px;
         font-size:15px;
         display:none;
     }
@@ -77,8 +81,9 @@
         position: absolute;
         margin: 5% auto;
         left: 700px;
-top:-10px;
-        z-index: 2;
+top:0px;
+        background-color: white;
+        z-index: 4;
     }
 
 
@@ -101,19 +106,46 @@ top:-10px;
         border-style: groove;
     }
     .left>div:hover{
-       transform: scale(1.2);
+       transform: scale(1.4);
         background-color: gainsboro;
+        border-color: red;
     }
     .right>div:hover{
-        transform: scale(1.2);
+        transform: scale(1.4);
         background-color: gainsboro;
+        border-color: red;
+    }
+h1{
+   font-size:  7em;
+}
+    .navbar-inverse {
+        font-size: 23px;
+        color: white;
+    }
+    .navbar-inverse a{
+        color: white;
+    }
+   #slow_nav ul li a{
+       font-size: 23px;
+   }
+    #slow_nav ul li ul li a{
+        font-size: 15px;
     }
 
+    .navbar-inverse a:hover{
+        color: red;
+    }
+    #slow_nav ul li a:hover{
+        font-size: 23px;
+        color: red;
+    }
 </style>
 <body>
+
 <h1>News</h1>
-<nav id="slow_nav" >
-    <ul style="display: inline-block">
+<nav class="navbar navbar-inverse" style="height: 72px; width: 1000px; ">
+<nav id="slow_nav">
+    <ul style="display: inline-block;">
         <li>
 <a href ="../webroot/index.php">Мир</a>
             <ul>
@@ -132,19 +164,22 @@ top:-10px;
 
     </ul>
 
-<a href ="../webroot/index.php?controller=default&action=policy">Политика</a>
+    <a href ="../webroot/index.php?controller=default&action=policy" class="pure-menu-selected" >Политика</a>
 <a href ="../webroot/index.php?controller=default&action=bisness">Бизнес</a>
 <a href ="../webroot/index.php?controller=default&action=science">Наука</a>
 <a href ="../webroot/index.php?controller=default&action=nature">Природа</a>
 <a href ="../webroot/index.php?controller=default&action=chekin">Регистрация</a>
-<a href="../webroot/index.php?controller=default&action=findoption">Поиск</a>
+     <a href="../webroot/index.php?controller=default&action=findoption">Поиск</a>
 </nav>
+
+</nav>
+
 <form method="post" action="../webroot/index.php?controller=default&action=find">
     <div class="ui-widget"style="display: inline" >
 Найти по тегу:
-   <input type="text" name="tag" id="tag">
+   <input type="text" class="search-query" name="tag" id="tag" >
     </div>
-    <button>find</button>
+    <button class="btn">find</button>
 </form>
 
 
@@ -153,13 +188,15 @@ top:-10px;
 <div class="container">
     <div class="left"><div id="1"><p id="na"></p>
             <p id="pr"></p></div>
-        <div id="2">reklama2</div>
+        <div id="2"><p id="n1"></p>
+            <p id="p1"></p></div>
         <div id="3">reklama3</div>
         </div>
 <div class="center">
 <?= $content?>
 </div>
-<div class="right"><div id="5">reklama5</div>
+<div class="right"><div id="5"><p id="n5"></p>
+        <p id="p5"></p></div>
     <div id="6">reklama6</div>
     <div id="7">reklama7</div>
     <div id="8">reklama8</div>
@@ -222,6 +259,7 @@ top:-10px;
 
 
     var arra=eval('<?php \Model\Repository::findreklama() ?>');
+
     var st=arra.toString();
     var ar=st.split(',');
     window.onload=function () {
@@ -229,7 +267,16 @@ top:-10px;
         document.getElementById("pr").innerText =ar[2];
         document.getElementById("1").onmouseover=function(){document.getElementById("pr").innerText=parseInt(ar[2])*0.9+"  Код 9745";}
         document.getElementById("1").onmouseout=function(){document.getElementById("pr").innerText=ar[2];}
+            document.getElementById("n1").innerText = ar[3];
+            document.getElementById("p1").innerText =ar[5];
+            document.getElementById("2").onmouseover=function(){document.getElementById("p1").innerText=parseInt(ar[2])*0.9+"  Код 9745";}
+            document.getElementById("2").onmouseout=function(){document.getElementById("p1").innerText=ar[5];}
+        document.getElementById("n5").innerText = ar[6];
+        document.getElementById("p5").innerText =ar[8];
+        document.getElementById("5").onmouseover=function(){document.getElementById("p5").innerText=parseInt(ar[2])*0.9+"  Код 9745";}
+        document.getElementById("5").onmouseout=function(){document.getElementById("p5").innerText=ar[8];}
     }
 
 
 </script>
+</html>

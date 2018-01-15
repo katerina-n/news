@@ -1,52 +1,79 @@
-<?php use Model\Repository; ?>
-<h3><?php echo $policy[0]->getName();?></h3>
+<h2><?php echo $policy[0]->getName();?></h2>
 <hr>
+<div style="display: inline">
 <?php if(!empty($policy[0]->getPicture())):?>
 <?php $im=$policy[0]->getPicture();?>
     <img src="./Photo/<?=$im?>">
 <?php endif?>
-<h4><?php echo $policy[0]->getContent();?></h4>
+    <h4><?php echo $policy[0]->getContent();?></h4>
+</div>
 <?php $array= explode(", ",$policy[0]->getTag());?>
-<p>#</p>
-<?php foreach ($array as $value): ?>
+<div ><p style="display: inline-block">#</p>
+<div style="display: inline-block"><?php foreach ($array as $value): ?>
     <a href ="../webroot/index.php?controller=default&action=findtag&tag=<?=$value;?>"><?=$value;?></a>
-<?php endforeach;?>
-
+    <?php endforeach;?></div>
+</div>
 <hr>
 
-Просматривают<div id="now">
-</div>
-Все просмотры<div id="all">
-</div>
+<strong>Просматривают: </strong><div id="now" style="display: inline-block"></div>
+<strong>Все просмотры: </strong><div id="all" style="display: inline-block"></div>
 
-<div>
+<div class="form-group">
 
     <form method="post" action="../webroot/index.php?controller=default&action=send&name=<?=$_GET['name']?>&id=<?=$policy[0]->getId()?>" >
-       Комментарий: <input type="text" name="comment">
-        <input type="submit" value="отправить">
+        Комментарий:  <textarea id="message" class="form-control" rows="5" placeholder="Enter your message" name="comment"></textarea>
+        <button  value="отправить" type="submit" class="btn" >Отправить</button>
     </form>
+
 </div>
-
-<?php for($j=0 ;$j<=count($comment_view)-1; $j++): ?>
-    <div> <?=$comment_view[$j]->getUserName();?>
-        <?=$comment_view[$j]->getComments();?>
+<hr style="height: 3px">
+<?php for($j=0 ;$j<=count($comment_view)-1; $j++): ?><div class="row" style="border-style: solid; border-width: 0.1px; border-color: beige">
+    <div style="display: inline-block" class="col-md-2" id="<?=$comment_view[$j]->getId()?>"> <?=$comment_view[$j]->getUserName();?></div>
+    <div style="display: inline-block" class="col-md-6">   <?=$comment_view[$j]->getComments();?> </div>
         <?=$comment_view[$j]->getLikeN();?>
-        <form method="post" action="../webroot/index.php?controller=default&action=pluslike&&name=<?=$_GET['name']?>&id=<?=$policy[0]->getId()?>&idlike=<?=$comment_view[$j]->getId()?>">
-            <input type="submit" value="LIKE" name="li"><input type="submit" value="DISLIKE" name="dli"></form>
+     <div style="display: inline-block" class="col-md-2">   <form method="post" action="../webroot/index.php?controller=default&action=pluslike&&name=<?=$_GET['name']?>&id=<?=$policy[0]->getId()?>&idlike=<?=$comment_view[$j]->getId()?>">
+         <div style="display: inline-block" class="col-md-2">   <input type="submit" value="LIKE" name="li" class="btn-xs" style="background-color: darkgreen; color: white"><input type="submit" value="DISLIKE" name="dli" class="btn-xs"style="background-color: firebrick;   color: white">
+            </form> </div>
 
+         <input type="submit" value="Answer" name="<?=$comment_view[$j]->getId()?>" class="btn-xs small" style="background-color: lightslategray; color: white" id="butt" >
+
+    <div class="<?=$comment_view[$j]->getId()?>"></div>
+    <?php for($i=0; $i<=count($answer)-1; $i++):?>
+        <?php if($answer[$i]->getCommentId()==$comment_view[$j]->getId()):?>
+            <div class="row" style="border-style: solid; border-width: 0.1px; border-color: beige; position:relative; right: <?=(750-$i*20)."px";?>; width: 210px; height: 35px; ">
+                <span class="glyphicon glyphicon-arrow-right"> <div style="display: inline-block" ><?=$answer[$i]->getUserName();?></div>
+                    <div style="display: inline-block" ><?=$answer[$i]->getComments();?></div> </span>
+            </div>
+        <?php endif; ?>
+        <?php endfor; ?>
         <!--<form method="post" action="../webroot/index.php?controller=default&action=addanswer&name=<?/*=$_GET['name']*/?>&id=<?/*=$policy[0]->getId()*/?>&comid=<?/*=$comment_view[$j]->getUserName();*/?>">
             <input type="text" name="comment"><input type="submit" value="Add" name="addcom" >
         </form>-->
    </div>
+    </div>
+    <br>
 <?php endfor;?>
 <script>
     var arr=eval('<?=$json ?>');
-
-    window.onload=function () {
-        setInterval(fn, 1000 );
-    }
-    function fn() {
+    document.getElementById("now").innerText = arr[0];
+    document.getElementById("all").innerText = arr[1];
+    /*window.onload=function () {
         document.getElementById("now").innerText = arr[0];
         document.getElementById("all").innerText = arr[1];
-    }
+    }*/
+    /*function fn() {
+        document.getElementById("now").innerText = arr[0];
+        document.getElementById("all").innerText = arr[1];
+    }*/
+    $(document).ready(function () {
+        $(".small").click(function () {
+            ids = $(this).attr("name");
+            $(".{ids}".replace('{ids}', ids)).append('<form method="post" name="f1" action=""><input type="text" name="comment"><input type="submit" value="Add" name="addcom" class ="addcom" ></form>');
+            $(document).ready(function () {
+               document.f1.action="../index.php?controller=default&action=addanswercomment&name=<?=$_GET['name']?>&id=<?=$_GET['id']?>&answid="+ids;
+            });
+
+        });
+        });
+
     </script>

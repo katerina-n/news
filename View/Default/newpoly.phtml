@@ -1,6 +1,18 @@
+<style>
+    .list-group-item a{
+        font-size: 20px;
+        color: black;
+    }
+</style>
+<body>
+<ul class="list-group">
 <?php for($i=0; $i<count($policy); $i++): ?>
-    <a href="../webroot/index.php?controller=default&action=show&name=<?=$_GET['name']?>&id=<?=$policy[$i]->getId()?>"><?=$policy[$i]->getName()?></a> <br>
-<?php endfor; ?>
+    <li class="list-group-item">  <a href="../webroot/index.php?controller=default&action=show&name=<?=$_GET['name']?>&id=<?=$policy[$i]->getId()?>"><?=$policy[$i]->getName()?></a> <br>
+    </li>
+        <?php endfor; ?>
+</ul>
 <?php for($j=1; $j<=$GLOBALS['total']; $j++): ?>
-<a href="../webroot/index.php?controller=default&action=but&idd=<?=$j?>&name=<?=$_GET['name']?>"><button><?=$j?></button></a>
-<?php endfor;?>
+<ul class="pagination"><li><a href="../webroot/index.php?controller=default&action=but&idd=<?=$j?>&name=<?=$_GET['name']?>"><button><?=$j?></button></a>
+    </li></ul>
+        <?php endfor;?>
+</body>

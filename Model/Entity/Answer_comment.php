@@ -5,6 +5,9 @@ class Answer_comment{
     private $user_name;
     private $comment_id;
     private $comments;
+    private $likes;
+    private $status;
+    private $created;
 
     /**
      * Answer_comment constructor.
@@ -19,6 +22,61 @@ class Answer_comment{
         $this->user_name = $user_name;
         $this->comment_id = $comment_id;
         $this->comments = $comments;
+        $this->likes=0;
+        $this->status=0;
+        $this->created=new \DateTime();
+
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLikes()
+    {
+        return $this->likes;
+    }
+
+    /**
+     * @param mixed $likes
+     */
+    public function setLikes($likes)
+    {
+        $this->likes = $likes;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * @param mixed $status
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCreated()
+    {
+        return $this->created;
+    }
+
+    /**
+     * @param mixed $created
+     */
+    public function setCreated($created)
+    {
+        $this->created = $created;
+        return $this;
     }
 
     /**

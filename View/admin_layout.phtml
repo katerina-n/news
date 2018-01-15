@@ -111,7 +111,7 @@
 
     </style>
 
-<body style="background-color: '<?=$_COOKIE['sait_colors'];?>';">
+<body style="background-color: <?=\Model\Repository::lc()?>;">
 <h1>News</h1>
 <nav id="slow_nav" >
     <ul style="display: inline-block">
@@ -137,7 +137,7 @@
     <a href ="../webroot/admin/index.php?controller=admindefault&action=bisness">Бизнес</a>
     <a href ="../webroot/admin/index.php?controller=admindefault&action=science">Наука</a>
     <a href ="../webroot/admin/index.php?controller=default&action=nature">Природа</a>
-    <a href ="../webroot/admin/index.php?controller=default&action=chekin">Регистрация</a>
+    <a href ="../webroot/admin/index.php?controller=admindefault&action=chekin">Регистрация</a>
     <a href="../webroot/admin/index.php?controller=admindefault&action=findoption">Поиск</a>
 </nav>
 <form method="post" action="../webroot/index.php?controller=default&action=find">
@@ -147,7 +147,6 @@
     </div>
     <button>find</button>
 </form>
-
 
 
 <hr>
@@ -183,14 +182,14 @@
 </div>
 <form method="post" action="../webroot/admin/index.php?controller=admindefault&action=color">
 <select name="color" size="1">
-    <option value="red">red</option>
-    <option value="green">green</option>
-    <option value="blue">none</option>
+    <option value="maroon">red</option>
+    <option value="forestgreen">green</option>
+    <option value="none">none</option>
 </select>
     <button  id="but">buton</button>
 
 </form>
-</body>
+
 <script type="text/javascript">
     $(function() {
         var availableTags = [
@@ -242,9 +241,10 @@
         document.getElementById("1").onmouseover=function(){document.getElementById("pr").innerText=parseInt(ar[2])*0.9+"  Код 9745";}
 
         document.getElementById("1").onmouseout=function(){document.getElementById("pr").innerText=ar[2];}
-        document.getElementById("but").onclick=function(){
-            document.body.style.backgroundColor=colors;}
+       /* document.getElementById("but").onclick=function(){
+            document.body.style.backgroundColor=colors;}*/
 
     };
 
 </script>
+</body>

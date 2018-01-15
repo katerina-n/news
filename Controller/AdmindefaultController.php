@@ -6,34 +6,48 @@ use Model\Repository;
 
 class AdmindefaultController{
 
-    public function policyAction(){
+    public function policyAction()
+    {
+        session_start();
+        if (!empty($_SESSION['admin'])) {
+            ob_start();
+            $a = Repository::lc();
+            $news = Repository::findAllnews();
 
-        ob_start();
+            require VIEW_DIR . 'Default/admin_view.phtml';
+            $content = ob_get_clean();
 
-$news=Repository::findAllnews();
-
-        require VIEW_DIR . 'Default/admin_view.phtml';
-        $content= ob_get_clean();
-
+            return $content;
+        }
+        else $content="Please login";
         return $content;
     }
     public function bisnessAction(Request $request){
-        ob_start();
-        $news=Repository::findAllcomment();
+        session_start();
+        if (!empty($_SESSION['admin'])) {
+            ob_start();
+            $news = Repository::findAllcomment();
 
-        require VIEW_DIR . 'Default/admin_coment.phtml';
-        $content= ob_get_clean();
+            require VIEW_DIR . 'Default/admin_coment.phtml';
+            $content = ob_get_clean();
 
+            return $content;
+        }
+        else $content="Please login";
         return $content;
-
     }
     public function scienceAction(Request $request){
-        ob_start();
-        $news=Repository::findAllReklama();
+        session_start();
+        if (!empty($_SESSION['admin'])) {
+            ob_start();
+            $news = Repository::findAllReklama();
 
-        require VIEW_DIR . 'Default/admin_reklama.phtml';
-        $content= ob_get_clean();
+            require VIEW_DIR . 'Default/admin_reklama.phtml';
+            $content = ob_get_clean();
 
+            return $content;
+        }
+        else $content="Please login";
         return $content;
     }
     public function addAction(Request $request){
@@ -50,7 +64,7 @@ $news=Repository::findAllnews();
 
 
         Repository::save($table_name,$id, $name, $content, $created, $picture, $tag, $visit);
-       Router::redirect("../webroot/admin/index.php?controller=admindefault&action=policy");
+       Router::redirect("../admin/index.php?controller=admindefault&action=policy");
     }
     public function deleteAction(Request $request){
         $form=$request->post('id');
@@ -100,7 +114,7 @@ ob_start();
         $picture=$request->post('date');
 
         Repository::saveRekl($id, $name, $content, $created, $picture);
-        Router::redirect("../webroot/admin/index.php?controller=admindefault&action=science");
+        Router::redirect("../admin/index.php?controller=admindefault&action=science");
     }
     public function deleteReklAction(Request $request){
         $form=$request->post('id');
@@ -121,6 +135,33 @@ public function colorAction(Request $request){
 
     return $content;
 }
+    public function chekinAction(Request $request){
+        ob_start();
+        session_start();
+        if($_SESSION['admin']=='admin'){
+            require VIEW_DIR. 'Default/chekout.phtml';
+
+            $content=ob_get_clean();
+            return $content;
+        }
+        else {
+            $_SESSION['flash'] = 'Please login';
+            require VIEW_DIR . 'Default/chekin.phtml';
+
+            $content = ob_get_clean();
+            return $content;
+        }
+
+    }
+    public function checkoutAction(){
+        session_start();
+        $_SESSION['user']=null;
+        require VIEW_DIR . 'Default/chekin.phtml';
+        // Session::setFlash("CheckIn");
+
+        $content = ob_get_clean();
+        return $content;
+    }
 }
 
 ?>

@@ -92,7 +92,7 @@ return $content;*/
        $json= self::allvisit($name, $numb);
 
        $comment_view=Repository::findcomment($name, $numb);
-
+$answer=Repository::answercomment();
         /*if(!isset($_COOKIE['all_read'])) {
             $_COOKIE['all_read']=$read_now;}
            else
@@ -240,6 +240,7 @@ if($policy=='user') {
             ob_start();
 
             $text = $request->post('comment');
+
             $comment_view = Repository::savecomment($table_name, $id, 'user', $text);
 
 
@@ -288,7 +289,7 @@ $users=Repository::showtopcomment($user_name);
     $content= ob_get_clean();
     return $content;
 }
-public function addanswerAction(Request $request){
+/*public function addanswerAction(Request $request){
     session_start();
     $table_name = $request->get('name');
     $id = $request->get('id');
@@ -302,7 +303,7 @@ public function addanswerAction(Request $request){
 
     }
     Router::redirect("../webroot/index.php?controller=default&action=show&name={$table_name}&id={$id}");
-}
+} */
 public function findoptionAction(Request $request){
     ob_start();
 
@@ -354,6 +355,27 @@ return $content;
         return $content;
     }
 
+public function addanswercommentAction(Request $request){
+        $username='user';
+$answ=$_GET["answid"];
+$answer=$_POST["comment"];
+$table_name=$_GET['name'];
+$id=$_GET['id'];
 
+
+
+/*    session_start();
+    if($_SESSION['user']=='user') {
+        ob_start();
+;
+        /*$text = $request->post('comment');
+        $comment_view = Repository::addanswer('user', $comment_id, $text);*/
+
+    ob_start();
+    $answer= Repository::addanswer($username, $answ, $answer);
+
+    Router::redirect("../webroot/index.php?controller=default&action=show&name={$table_name}&id={$id}");
+
+}
 }
 ?>

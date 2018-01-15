@@ -1,37 +1,48 @@
-<body>
-
+<body >
+<div class="row">
     <?php for($i=0; $i<=count($policy)-1; $i=$i+5): ?>
         <?php if($i<5){$name='policy';} if(($i>=5)&&($i<10)){$name='bisness';}
          if(($i>=10)&&($i<15)){$name='science';} if($i>=15){$name='nature';}?>
-      <div style="display: inline-block">
-            <a href="../webroot/index.php?controller=default&action=show&name=<?=$name?>&id=<?=$policy[$i]->getId()?>"><?=$policy[$i]->getName()?>
-                </a><br>
+      <div style="display: inline-block; border-right: 2px solid #333; font-size: large; color: black;" class="col-md-3" >
+           <a href="../webroot/index.php?controller=default&action=show&name=<?=$name?>&id=<?=$policy[$i]->getId()?>"><?=$policy[$i]->getName()?>
+              </a><br>
 
             <a href="../webroot/index.php?controller=default&action=show&name=<?=$name?>&id=<?=$policy[$i]->getId()?>"><?=$policy[$i+1]->getName()?>
-                </a><br>
+               </a><br>
 
             <a href="../webroot/index.php?controller=default&action=show&name=<?=$name?>&id=<?=$policy[$i]->getId()?>"><?=$policy[$i+2]->getName()?>
-                </a><br>
+               </a><br>
 
             <a href="../webroot/index.php?controller=default&action=show&name=<?=$name?>&id=<?=$policy[$i]->getId()?>"><?=$policy[$i+3]->getName()?>
-                </a><br>
+               </a><br>
             <a href="../webroot/index.php?controller=default&action=show&name=<?=$name?>&id=<?=$policy[$i]->getId()?>"><?=$policy[$i+4]->getName()?>
-                </a>
+              </a><br>
+
           </div>
 <?php endfor; ?>
-<p>TOP юзеров</p>
+</div>
+<hr style="height: 3px">
+<div class="row">
+    <div class="col-md-4" style="display: inline-block" >
+        <strong>TOP юзеров</strong>
 
 <?php for($j=0; $j<=count($users)-1; $j++): ?>
-    <a href="../webroot/index.php?controller=default&action=showUser&id=<?=$users[$j]->getId();?>&username=<?=$users[$j]->getUserName();?>"><?=$users[$j]->getUserName()." ";?>
-    </a>
+   <small> <a href="../webroot/index.php?controller=default&action=showUser&id=<?=$users[$j]->getId();?>&username=<?=$users[$j]->getUserName();?>"><?=$users[$j]->getUserName()." ";?>
+       </a></small>
 <?php endfor; ?>
-<p>TOP тем</p>
+    </div>
+    <div  class="col-md-4 col-md-offset-4" style="display: inline-block">
+<strong>TOP тем</strong>
 <?php for($j=0; $j<=2; $j++): ?>
-    <?=$subjects[$j]->getTableName()." ";?>
+    <small> <?=$subjects[$j]->getTableName()." ";?></small>
 <?php endfor; ?>
+</div>
+</div>
 <hr>
-<div id="slider"></div>
-<img id="pic" alt="nophoto"></img>
+    <div class="panel-footer"><strong>Последние новости</strong><br>
+<div id="slider" style="display: inline"></div>
+<img id="pic" alt="nophoto" style="display: inline"></img>
+    </div>
 <hr>
     <script>
 var i=0;
